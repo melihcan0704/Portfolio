@@ -5,7 +5,7 @@
 --I will only be copying the questions in there which will be followed by my submissions. For details & context you can visit the link provided above.
 
 
---1. Data Integrity Checking & Cleanup
+--Q1. Data Integrity Checking & Cleanup
 
 --Alphabetically list all of the country codes in the continent_map table that appear more than once. 
 
@@ -83,6 +83,51 @@ WHERE EXISTS (SELECT * FROM this2 WHERE this2.country_code=braintree.continent_m
 
 
 --Now there are 254 rows in total after the duplicate removal. (9 duplicate rows removed except for the null values)
+
+
+--Q2. List the countries ranked 10-12 in each continent by the percent of year-over-year growth descending from 2011 to 2012.
+--The percent of growth should be calculated as: ((2012 gdp - 2011 gdp) / 2011 gdp)
+--The list should include the columns:
+--rank, continent_name, country_code, country_name, growth_percent
+
+
+WITH data2011 AS (select 
+country_code,
+year,
+MAX(gdp_per_capita) AS max_capita
+from braintree.per_capita
+WHERE year = 2011
+GROUP BY 1,2
+)
+,
+data2012 AS (select 
+country_code,
+year,
+MAX(gdp_per_capita) AS max_capita
+from braintree.per_capita
+WHERE year = 2012
+GROUP BY 1,2
+)
+,
+changeover_data AS (select 
+d11.country_code
+,ROUND(CAST(((d12.max_capita - d11.max_capita) / d11.max_capita * 100.0) AS DECIMAL),2) AS capita_changeover
+FROM data2011 d11
+JOIN data2012 d12
+ON d11.country_code = d12.country_code
+WHERE ((d12.max_capita - d11.max_capita) / d11.max_capita * 100.0) IS NOT NULL)
+
+SELECT 
+country_code,
+CONCAT(capita_changeover,'%'),
+RANK() OVER(ORDER BY capita_changeover DESC)
+FROM changeover_data
+
+
+
+
+
+
 
 
 
