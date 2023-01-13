@@ -91,6 +91,7 @@ WHERE EXISTS (SELECT * FROM this2 WHERE this2.country_code=braintree.continent_m
 --rank, continent_name, country_code, country_name, growth_percent
 
 
+--Created a table with 2011 data only.
 WITH data2011 AS (select 
 country_code,
 year,
@@ -99,7 +100,9 @@ from braintree.per_capita
 WHERE year = 2011
 GROUP BY 1,2
 )
+
 ,
+--Created a table with 2012 data only.
 data2012 AS (select 
 country_code,
 year,
@@ -109,6 +112,7 @@ WHERE year = 2012
 GROUP BY 1,2
 )
 ,
+--Joined above 2 tables together and added the required formula in line 118. Numerical restrictions set by the challenge will be done in the next queries.
 changeover_data AS (select 
 d11.country_code
 ,ROUND(CAST(((d12.max_capita - d11.max_capita) / d11.max_capita * 100.0) AS DECIMAL),2) AS capita_changeover
@@ -116,18 +120,26 @@ FROM data2011 d11
 JOIN data2012 d12
 ON d11.country_code = d12.country_code
 WHERE ((d12.max_capita - d11.max_capita) / d11.max_capita * 100.0) IS NOT NULL)
-
+,
+--continent_name and country_name doesnt exist in above CTE's so created a placeholder CTE so we can join this to the final query.
+remaining_locations AS (
+SELECT
+ct.continent_name,
+cr.country_name,
+cr.country_code
+FROM braintree.continent_map cm
+JOIN braintree.continents ct ON ct.continent_code = cm.continent_code
+JOIN braintree.countries cr ON cr.country_code = cm.country_code
+)
+--Added continent_name and country_name, converted the numerical column (growth_percent) as per the restriction.
+--Made the output so that results only display countries ranked 10-12
 SELECT 
-country_code,
-CONCAT(capita_changeover,'%'),
+rl.continent_name,
+rl.country_name,
+cd.country_code,
+CONCAT(cd.capita_changeover,'%') AS growth_percent,
 RANK() OVER(ORDER BY capita_changeover DESC)
-FROM changeover_data
-
-
-
-
-
-
-
-
-
+FROM changeover_data cd
+JOIN remaining_locations rl ON rl.country_code = cd.country_code
+OFFSET 9
+LIMIT 3
