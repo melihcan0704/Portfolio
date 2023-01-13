@@ -143,3 +143,55 @@ FROM changeover_data cd
 JOIN remaining_locations rl ON rl.country_code = cd.country_code
 OFFSET 9
 LIMIT 3
+
+
+
+
+
+--Q3. For the year 2012, create a 3 column, 1 row report showing the percent share of gdp_per_capita for the following regions:
+--(i) Asia, (ii) Europe, (iii) the Rest of the World. Your result should look something like
+--	Asia	Europe	Rest of World
+--	25.0%	25.0%	50.0%
+
+
+--First calculation to see the total world gdp for future calculations.
+SELECT SUM(gdp) AS world_gdp FROM
+
+Output: 2618124.49
+
+
+WITH continent_gdp AS (
+SELECT 
+continent_name,
+year,
+ROUND(SUM(CAST(gdp_per_capita AS DECIMAL)),2) gdp
+FROM braintree.per_capita pc
+JOIN braintree.continent_map cm ON cm.country_code = pc.country_code
+JOIN braintree.continents ct ON ct.continent_code = cm.continent_code
+WHERE year = 2012
+GROUP BY 1,2)
+,
+continent_share AS (
+SELECT 
+continent_name,
+ROUND(((gdp/2618124.49)*100),2) AS gdp_share
+FROM continent_gdp)
+,
+rest AS (
+SELECT 
+CASE WHEN continent_name IN ('Oceania','South America','Africa','North America')  THEN 'Rest of the world'
+ELSE continent_name END,
+CONCAT(SUM(gdp_share),'%') total_gdp_share
+FROM continent_share
+GROUP BY 1
+ORDER BY 1
+)	
+
+
+
+
+
+
+
+
+
