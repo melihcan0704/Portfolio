@@ -159,7 +159,7 @@ SELECT SUM(gdp) AS world_gdp FROM
 
 Output: 2618124.49
 
-
+--Below query results in gdp_per_capita grouped by continents.
 WITH continent_gdp AS (
 SELECT 
 continent_name,
@@ -171,13 +171,14 @@ JOIN braintree.continents ct ON ct.continent_code = cm.continent_code
 WHERE year = 2012
 GROUP BY 1,2)
 ,
+--Below query results in gdp share of asked continents.
 continent_share AS (
 SELECT 
 continent_name,
 ROUND(((gdp/2618124.49)*100),2) AS gdp_share
 FROM continent_gdp)
 ,
-rest AS (
+final AS (
 SELECT 
 CASE WHEN continent_name IN ('Oceania','South America','Africa','North America')  THEN 'Rest of the world'
 ELSE continent_name END,
@@ -188,10 +189,23 @@ ORDER BY 1
 )	
 
 
+Final Output:
+
+"continent_name"	"total_gdp_share"
+"Asia"			"28.33%"
+"Europe"		"42.24%"
+"Rest of the world"	"29.42%"
+
+
+--I understand that the final output needs to be pivoted for the correct answer. But I'am using PostgreSQL and pivoting in PSQL is very difficult
+--compared to MS SQL Server or Excel. It requires an additional Module and a very time consuming syntax.(Module:tablefunc Function: CROSSTAB().)
+--At this point I would switch the final output to MS SQL Server, Bigquery or excel (Depending on the import size) for pivoting.
 
 
 
 
-
-
+--Q4
+--4a. What is the count of countries and sum of their related gdp_per_capita values for the year 2007 where the string 'an' 
+--(case insensitive) appears anywhere in the country name?
+--4b. Repeat question 4a, but this time make the query case sensitive.
 
