@@ -203,9 +203,48 @@ Final Output:
 
 
 
-
 --Q4
 --4a. What is the count of countries and sum of their related gdp_per_capita values for the year 2007 where the string 'an' 
 --(case insensitive) appears anywhere in the country name?
+
+SELECT 
+COUNT(c.country_code) AS country,
+CONCAT(ROUND(CAST(SUM(pc.gdp_per_capita) AS INT),2),'$') AS total_gdp
+FROM braintree.countries c
+JOIN braintree.per_capita pc ON pc.country_code = c.country_code
+WHERE country_name ILIKE '%an%' AND year = 2007
+
 --4b. Repeat question 4a, but this time make the query case sensitive.
+
+SELECT 
+COUNT(c.country_code) AS country,
+CONCAT(ROUND(CAST(SUM(pc.gdp_per_capita) AS INT),2),'$') AS total_gdp
+FROM braintree.countries c
+JOIN braintree.per_capita pc ON pc.country_code = c.country_code
+WHERE country_name LIKE '%an%' AND year = 2007;
+
+
+/* Q5 Find the sum of gdp_per_capita by year and the count of countries for each year that have non-null gdp_per_capita where 
+   the year is before 2012 and Your result should have the columns:
+year
+country_count
+total */
+
+SELECT 
+pc.year,
+COUNT(DISTINCT c.country_name) country_count,
+CONCAT(ROUND(CAST(SUM(pc.gdp_per_capita) AS INT),2),'$') total_gdp
+FROM braintree.per_capita pc
+JOIN braintree.countries c ON c.country_code = pc.country_code 
+WHERE year < 2012 AND gdp_per_capita IS NOT NULL 
+GROUP BY 1
+
+
+
+
+
+
+
+
+
 
