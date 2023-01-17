@@ -145,3 +145,33 @@ GROUP BY 1
 	ORDER BY 1;
 	
 	
+--If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+
+SELECT 
+	s.customer_id,
+		SUM(CASE WHEN m.product_id IN (2,3) THEN (price*10)
+			ELSE (price*20)
+				END) AS points
+FROM dannys_diner.sales s
+	JOIN dannys_diner.menu m 
+		ON m.product_id = s.product_id
+GROUP BY 1
+ORDER BY 2 DESC;
+
+--In the first week after a customer joins the program (including their join date) they earn 2x points on all items, 
+--not just sushi - how many points do customer A and B have at the end of January?
+
+
+SELECT 
+	s.customer_id,
+		SUM(CASE WHEN m.product_id IN (1,2,3) THEN (price*20)
+			ELSE (price*20) END) AS points
+FROM dannys_diner.sales s
+	JOIN dannys_diner.menu m 
+		ON m.product_id = s.product_id
+	JOIN dannys_diner.members me
+		ON me.customer_id = s.customer_id
+			AND me.join_date <= s.order_date
+WHERE s.order_date BETWEEN join_date AND '2021-02-01'
+	GROUP BY 1
+		ORDER BY 2 DESC;
