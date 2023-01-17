@@ -1,3 +1,5 @@
+Source: https://8weeksqlchallenge.com/case-study-1/
+
 --What is the total amount each customer spent at the restaurant?
 SELECT 
 	customer_id,
