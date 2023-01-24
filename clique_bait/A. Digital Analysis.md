@@ -68,3 +68,26 @@ Result:
 
 ![image](https://user-images.githubusercontent.com/104590611/214290687-80ec446c-80d5-4d33-974a-e20e690663f8.png)
 
+
+**What is the percentage of visits which have a purchase event?**
+
+```sql
+SELECT 
+	ROUND(COUNT(*)*100.0
+	/
+	(SELECT COUNT(DISTINCT visit_id) FROM clique_bait.events),2) AS purchase_percentage
+FROM clique_bait.events e
+	INNER JOIN clique_bait.event_identifier ei
+		ON e.event_type = ei.event_type
+WHERE event_name = 'Purchase'
+```
+
+Result:
+
+![image](https://user-images.githubusercontent.com/104590611/214293490-2f928d56-ffb8-457f-8668-9313f6d87f8b.png)
+
+
+
+
+*to be continued.*
+*underwork*
