@@ -48,4 +48,23 @@ Result:
 
 
 
+**What is the number of events for each event type?**
+
+
+
+```sql
+SELECT 
+	event_name,
+	e.event_type,
+	COUNT(*)
+FROM clique_bait.events e
+	INNER JOIN clique_bait.event_identifier ei
+		ON e.event_type = ei.event_type
+GROUP BY 1,2
+```
+
+Result:
+
+
+![image](https://user-images.githubusercontent.com/104590611/214290687-80ec446c-80d5-4d33-974a-e20e690663f8.png)
 
