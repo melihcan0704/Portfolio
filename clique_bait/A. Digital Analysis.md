@@ -154,5 +154,30 @@ Result:
 
 ![image](https://user-images.githubusercontent.com/104590611/214407406-a0eb4792-ce71-4d51-b714-02655f77c748.png)
 
-*to be continued.*
-*underwork*
+**What are the top 3 products by purchases?**
+```sql
+WITH purchases_cookie_id AS (
+SELECT
+	cookie_id
+FROM clique_bait.events e
+	JOIN clique_bait.page_hierarchy ph
+		ON e.page_id = ph.page_id
+WHERE page_name = 'Confirmation'
+)
+SELECT 
+	page_name,
+	SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS times_purchased
+FROM clique_bait.events e
+	JOIN clique_bait.page_hierarchy ph
+		ON e.page_id = ph.page_id
+WHERE cookie_id IN (SELECT cookie_id FROM purchases_cookie_id) 
+	AND ph.page_id BETWEEN 3 AND 11
+GROUP BY 1
+	ORDER BY 2 DESC
+		LIMIT 3
+```
+
+Result:
+
+
+![image](https://user-images.githubusercontent.com/104590611/214414759-3149d908-e699-4e98-bc74-babe998ea2c7.png)
