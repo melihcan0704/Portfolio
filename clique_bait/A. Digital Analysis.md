@@ -133,5 +133,26 @@ Result:
 ![image](https://user-images.githubusercontent.com/104590611/214403715-95254434-01d7-4675-9894-632fc509699d.png)
 
 
+**What is the number of views and cart adds for each product category?**
+```sql
+--Event_type "Add to Cart" = 2
+--Event_type "Page View" = 1
+SELECT 
+	product_category,
+	SUM(CASE WHEN event_type = 1 THEN 1 ELSE 0 END) AS Page_views,
+	SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS Add_to_cart
+FROM clique_bait.events e
+	JOIN clique_bait.page_hierarchy ph
+		ON e.page_id = ph.page_id
+WHERE ph.page_id BETWEEN 3 AND 11
+	GROUP BY 1
+		ORDER BY 2 DESC,3 DESC
+```
+
+Result:
+
+
+![image](https://user-images.githubusercontent.com/104590611/214407406-a0eb4792-ce71-4d51-b714-02655f77c748.png)
+
 *to be continued.*
 *underwork*
