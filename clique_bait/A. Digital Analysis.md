@@ -86,7 +86,29 @@ Result:
 
 ![image](https://user-images.githubusercontent.com/104590611/214293490-2f928d56-ffb8-457f-8668-9313f6d87f8b.png)
 
+**What is the percentage of visits which view the checkout page but do not have a purchase event?**
 
+
+```sql
+--Checkout Page_id = 12
+--Confirmation Page_id = 13
+--Purchase event_type = 3
+--Page_view event_type = 1
+
+
+WITH bounce AS (SELECT 
+visit_id,
+MAX(CASE WHEN event_type = 1 AND page_id = 12 THEN 1 ELSE 0 END) AS checkouts,
+MAX(CASE WHEN event_type = 3 THEN 1 ELSE 0 END) AS purchases
+FROM clique_bait.events
+GROUP BY 1)
+
+SELECT ROUND(100-(SUM(purchases)*100.0 / SUM(checkouts)),2) AS checkouts_without_purchase FROM bounce
+```
+
+Result: 
+
+![image](https://user-images.githubusercontent.com/104590611/214401418-010a628a-6b6d-4645-b354-aad6e8fae770.png)
 
 
 *to be continued.*
