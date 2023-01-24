@@ -1,6 +1,6 @@
 #under construction
 
-```
+```sql
 SELECT 
 COUNT(DISTINCT user_id) AS user_count
 FROM clique_bait.users;
