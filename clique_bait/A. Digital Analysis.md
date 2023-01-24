@@ -96,10 +96,11 @@ Result:
 --Page_view event_type = 1
 
 
-WITH bounce AS (SELECT 
-visit_id,
-MAX(CASE WHEN event_type = 1 AND page_id = 12 THEN 1 ELSE 0 END) AS checkouts,
-MAX(CASE WHEN event_type = 3 THEN 1 ELSE 0 END) AS purchases
+WITH bounce AS (
+SELECT 
+	visit_id,
+	MAX(CASE WHEN event_type = 1 AND page_id = 12 THEN 1 ELSE 0 END) AS checkouts,
+	MAX(CASE WHEN event_type = 3 THEN 1 ELSE 0 END) AS purchases
 FROM clique_bait.events
 GROUP BY 1)
 
@@ -109,6 +110,27 @@ SELECT ROUND(100-(SUM(purchases)*100.0 / SUM(checkouts)),2) AS checkouts_without
 Result: 
 
 ![image](https://user-images.githubusercontent.com/104590611/214401418-010a628a-6b6d-4645-b354-aad6e8fae770.png)
+
+
+**What are the top 3 pages by number of views?**
+
+```sql
+SELECT 
+	page_name,
+	COUNT(*)
+FROM clique_bait.events e
+	JOIN clique_bait.page_hierarchy ph
+		ON e.page_id = ph.page_id
+WHERE e.event_type = 1
+	GROUP BY 1
+		ORDER BY 2 DESC
+			LIMIT 3
+
+```
+
+Result:
+
+![image](https://user-images.githubusercontent.com/104590611/214403715-95254434-01d7-4675-9894-632fc509699d.png)
 
 
 *to be continued.*
