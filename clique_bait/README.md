@@ -8,5 +8,7 @@ In this case study - you are required to support Danny’s vision and analyse hi
 # This Case will be divided and studied upon three divisions. Headlines as below.
 
 A.Digital Analysis
+
 B.Product Funnel Analysis
+
 C.Campaigns Analysis
