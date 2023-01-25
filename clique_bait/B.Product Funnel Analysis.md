@@ -1,8 +1,11 @@
 **Using a single SQL query - create a new output table which has the following details:
 
 How many times was each product viewed?
+
 How many times was each product added to cart?
+
 How many times was each product added to a cart but not purchased (abandoned)?
+
 How many times was each product purchased?**
 
 ```sql
@@ -55,3 +58,9 @@ SELECT *
 FROM final_report
 
 ```
+
+final report result:
+
+![image](https://user-images.githubusercontent.com/104590611/214571306-bbace09f-534b-4234-99f4-f4710d170d1a.png)
+
+
