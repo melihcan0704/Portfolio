@@ -62,5 +62,3 @@ FROM final_report
 final report result:
 
 ![image](https://user-images.githubusercontent.com/104590611/214571306-bbace09f-534b-4234-99f4-f4710d170d1a.png)
-
-
