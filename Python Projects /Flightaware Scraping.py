@@ -27,10 +27,10 @@ error_hostnames = {}
 satisfying_hostnames = {}
 text = "Last flight script is completed"
 tts = gTTS(text)
-temp_file = "/home/immfly/Desktop/last-flight/temp.mp3"
+temp_file = "/home/Desktop/last-flight/temp.mp3"
 tts.save(temp_file)
 
-with open("/home/immfly/Desktop/last-flight/aircraft_list.txt", 'r') as file:
+with open("/home/Desktop/last-flight/aircraft_list.txt", 'r') as file:
     for hostname in file:
         hostname = hostname.strip()  # Remove leading/trailing whitespaces and newlines
 
