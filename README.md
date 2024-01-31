@@ -43,7 +43,7 @@ Data Analytics & SQL
 ## Foundations Data, Data Everywhere
 - **Institution:** Google | Coursera
 - **Completion Date:** July 2022
-- [View Certificate](Certificates/Coursera%20Foundations%20Data,%20%20Everywhere.pdf)
+- [View Certificate](Certificates/Coursera%20Foundations%20Data,%20Data%20Everywhere.pdf)
 
 ## Prepare Data for Exploration
 - **Institution:** Google | Coursera
