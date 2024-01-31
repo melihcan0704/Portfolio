@@ -8,7 +8,8 @@ My Data Analytics related certificates can be found below with their reference l
 
 # Certificates:
 
-Data Analytics & SQL
+<details>
+<summary>Data Analytics & SQL</summary>
 
 ## The Advanced SQL Server Masterclass For Data Analysis
 - **Institution:** Maven Analytics | Udemy
@@ -64,6 +65,7 @@ Data Analytics & SQL
 **Institution:** HackerRank
 - **Completion Date:** May 2022
 - [View Certificate](Certificates/sql_intermediate%20certificate.pdf)
+</details>
 
 Python
 
