@@ -67,7 +67,8 @@ My Data Analytics related certificates can be found below with their reference l
 - [View Certificate](Certificates/sql_intermediate%20certificate.pdf)
 </details>
 
-Python
+<details>
+<summary>Python</summary>
 
 ## Analyze Data with Python
 **Institution:** Codecademy
@@ -83,8 +84,10 @@ Python
 **Institution:** Codecademy
 - **Completion Date:** June 2023
 - [View Certificate](Certificates/Learn%20Intermediate%20Python%203.pdf)
+</details>
 
-Bash & Linux
+<details>
+<summary>Bash & Linux</summary>
 
 ## Hands-on introduction to Linux commands and Scripting
 **Institution:** IBM | Coursera
@@ -105,4 +108,4 @@ Bash & Linux
 **Institution:** Codecademy
 - **Completion Date:** September 2023
 - [View Certificate](Certificates/Linux:%20Users%20and%20Permissions.pdf)
-
+</details>
