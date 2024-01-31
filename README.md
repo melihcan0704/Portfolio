@@ -11,7 +11,7 @@ My Data Analytics related certificates can be found below with their reference l
 ## The Advanced SQL Server Masterclass For Data Analysis
 - **Institution:** Maven Analytics | Udemy
 - **Completion Date:** June 2022
-- [View Certificate](Certificates/The_Advanced_SQL_Server_Masterclass_For_Data_Analysis.pdf)
+- [View Certificate](Certificates/The%20Advanced%20SQL%20Server%20Masterclass%20For%20Data%20Analysis.pdf)
 
 ## High School Diploma
 - **School:** Your High School
